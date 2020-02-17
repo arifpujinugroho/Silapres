@@ -15,9 +15,8 @@ Route::get('optimize', function () {
 |
 */
 
-Route::get('/', function () {
-    return view('guest.front');
-});
+Route::get('/', 'HomeController@index');
+
 Route::get('presensi', function () {
     return view('guest.absen');
 });
