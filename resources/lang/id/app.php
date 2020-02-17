@@ -6,11 +6,13 @@ return [
     'front_page'                => 'Halaman Depan',
     'back'                      => 'Kembali',
     'language'                  => 'Bahasa',
-
-    'docs'                      => 'Dokumen.',
-    'laracast'                  => 'Laracasts',
-    'news'                      => 'Berita',
-    'blog'                      => 'Blog',
+    'event'                     => 'Acara',
+    'audience'                  => 'Kehadiran',
+    'time'                      => 'Waktu',
+    'full_name'                 => 'Nama Lengkap',
+    'identity_number'           => 'Nomer Identitas',
+    'identity'                  => 'Identitas',
+    'institution'               => 'Instansi',
 
 
 
@@ -20,16 +22,17 @@ return [
     'english'                   => 'Bahasa Inggris',
     'korea'                     => 'Bahasa Korea Selatan',
     'jepang'                    => 'Bahasa Jepang',
-
-
-
-
-
-
-
-
-
-
     'optimize'                  => 'Mengoptimalkan Berhasil',
+
+
+
+
+
+
+
+    'docs'                      => 'Dokumen.',
+    'laracast'                  => 'Laracasts',
+    'news'                      => 'Berita',
+    'blog'                      => 'Blog',
 
 ];

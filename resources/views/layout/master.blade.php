@@ -369,11 +369,11 @@
         </script>
         @include('layout.notification')
 
-        {{--<div  style="text-align:center;font-size:24px;color:red; margin: 0px; padding: 0px; border: 0px; background: url(&quot;{{url('')}}&quot;)
+        <div  style="text-align:center;font-size:24px;color:red; margin: 0px; padding: 0px; border: 0px; background: url(&quot;{{url('')}}&quot;)
         center center / 79px 23px no-repeat rgb(255, 255, 255); max-width: none; max-height: none; position: fixed;
-        height: 36px !important; width: 256px !important; overflow: hidden !important; bottom: 0px !important; right:
+        height: 36px !important; width: 200px !important; overflow: hidden !important; bottom: 0px !important; right:
         0px !important; z-index: 1000003 !important; cursor: pointer !important; box-shadow: rgba(0, 0, 0, 0.2) 0px 0px
-        5px 0px; border-top-left-radius: 2px;" id="time"></div>--}}
+        5px 0px; border-top-left-radius: 2px;" id="time"></div>
 </body>
 
 </html>

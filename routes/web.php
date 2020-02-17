@@ -18,4 +18,7 @@ Route::get('optimize', function () {
 Route::get('/', function () {
     return view('guest.front');
 });
+Route::get('test', function () {
+    return view('guest.absen');
+});
 
