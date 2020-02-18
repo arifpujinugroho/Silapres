@@ -13,7 +13,12 @@ return [
     'identity'                  => 'Identity',
     'institution'               => 'Institution',
     'navigation'                => 'Navigation',
-    'dashboard'                => 'Dashboard',
+    'dashboard'                 => 'Dashboard',
+    'event_name'                => 'Event Name',
+    'event_date'                => 'Event Date',
+    'event_location'            => 'Event Location',
+    'pic_event'                 => 'Event Person in Charge',
+    'action'                    => 'Action',
 
 
 

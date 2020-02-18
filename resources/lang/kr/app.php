@@ -15,6 +15,11 @@ return [
     'institution'               => '제도',
     'navigation'                => '항해',
     'dashboard'                 => '계기반',
+    'event_name'                => '행사 명',
+    'event_date'                => '행사 날',
+    'event_location'            => '행사 장소',
+    'pic_event'                 => '이벤트 담당자',
+    'action'                    => '행동',
 
 
 

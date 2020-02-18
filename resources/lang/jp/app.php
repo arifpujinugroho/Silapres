@@ -15,6 +15,11 @@ return [
     'institution'                   => '機関',
     'navigation'                    => 'ナビゲーション',
     'dashboard'                     => 'ダッシュボード',
+    'event_name'                    => 'イベント名',
+    'event_date'                    => '開催日',
+    'event_location'                => 'イベントの場所',
+    'pic_event'                     => 'イベント担当者',
+    'action'                        => 'アクション',
 
 
 

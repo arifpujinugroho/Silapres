@@ -23,6 +23,11 @@ Route::get('cek', function () {
         return \Carbon\Carbon::now()->toDateString();
 });
 
+Route::group(['middleware' => ['auth']], function () {
+        Route::get('event', 'AuthController@Event');
+        Route::get('listevent', 'AuthController@ListEvent');
+});
+
 Route::get('keluar', function () {
         Auth::logout();
         return redirect()->route('home');

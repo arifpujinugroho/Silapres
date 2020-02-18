@@ -15,6 +15,11 @@ return [
     'institution'               => 'Instansi',
     'navigation'                => 'Navigasi',
     'dashboard'                 => 'Dasbor',
+    'event_name'                => 'Nama Acara',
+    'event_date'                => 'Tanggal Acara',
+    'event_location'            => 'Lokasi Acara',
+    'pic_event'                 => 'Penanggung Jawab Acara',
+    'action'                    => 'Action',
 
 
 
