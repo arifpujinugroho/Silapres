@@ -115,12 +115,18 @@
 
                     <div class="navbar-logo">
                         @auth
-                        <a class="mobile-menu" id="mobile-collapse" href="#!">
-                            <i class="ti-menu"></i>
-                        </a>
+                            @if(Request::path() != 'presensi')
+                                <a class="mobile-menu" id="mobile-collapse" href="#!">
+                                    <i class="ti-menu"></i>
+                                </a>
+                            @endif
                         @endauth
                         <a href="javascript:location.reload(true)">
+                            @auth
+                            <h2 style="font-family:sans-serif;"><i class="fa fa-list-alt" aria-hidden="true"></i> SILAPRES</h2>
+                            @else
                             <h1 style="font-family:sans-serif;"><i class="fa fa-list-alt" aria-hidden="true"></i> SILAPRES</h1>
+                            @endauth
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>
@@ -130,10 +136,12 @@
                     <div class="navbar-container container-fluid">
                         <ul class="nav-left">
                             @auth
-                            <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
-                                </div>
-                            </li>
+                                @if(Request::path() != 'presensi')
+                                    <li>
+                                        <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                        </div>
+                                    </li>
+                                @endif
                             @endauth
                         </ul>
                         <ul class="nav-right">
@@ -233,34 +241,31 @@
                         </div>
 
                         @auth
-                        <div class="pcoded-inner-navbar main-menu">
-                            <!--For Slide Samping-->
-                            <div class="">
-                                <div class="main-menu-header">
-                                    <a href="{{url ('/')}}"><img class="img-40 img-radius"
-                                            src="{{url('files/pasfoto/'.Auth::user()->foto)}}"
-                                            alt="Foto {{Auth::user()->name}}"></a>
-                                    <div class="user-details">
-                                        <span><strong>{{ Auth::user()->name }}</strong></span>
-                                        <span>{{ Auth::user()->level }} ||
-                                            @if(Auth::user()->email_verified_at == "")
-                                            <small class="text-danger">Pending</small>
-                                            @else
-                                            <small class="text-success">Active</small>
-                                            @endif
-                                        </span>
+                            @if(Request::path() != 'presensi')
+                                <div class="pcoded-inner-navbar main-menu">
+                                    <!--For Slide Samping-->
+                                    <div class="">
+                                        <div class="main-menu-header">
+                                            <a href="{{url ('/')}}"><img class="img-40 img-radius"
+                                                    src="{{url('assets/uny.png')}}"
+                                                    alt="Foto {{Auth::user()->name}}"></a>
+                                            <div class="user-details">
+                                                <span><strong>{{ Auth::user()->name }}</strong></span>
+                                                <span class="text-lowercase">{{ Auth::user()->email }}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">
+                                        {{ trans('app.navigation') }}
+                                    </div>
+
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        @include('users.leftside')
+                                    </ul>
                                 </div>
-                            </div>
-
-                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">
-                                Navigation
-                            </div>
-
-                            <ul class="pcoded-item pcoded-left-item">
-                                @include('auth.leftside')
-                            </ul>
-                        </div>
+                            @endif
                         @endauth
                     </nav>
                     <div class="pcoded-content">
@@ -369,7 +374,7 @@
         </script>
         @include('layout.notification')
 
-        @if(Request::path() == 'presensi/*')
+        @if(Request::path() == 'presensi')
         <div  style="text-align:center;font-size:24px;color:red; margin: 0px; padding: 0px; border: 0px; background: url(&quot;{{url('')}}&quot;)
         center center / 79px 23px no-repeat rgb(255, 255, 255); max-width: none; max-height: none; position: fixed;
         height: 36px !important; width: 200px !important; overflow: hidden !important; bottom: 0px !important; right:

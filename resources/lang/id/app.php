@@ -13,6 +13,8 @@ return [
     'identity_number'           => 'Nomer Identitas',
     'identity'                  => 'Identitas',
     'institution'               => 'Instansi',
+    'navigation'                => 'Navigasi',
+    'dashboard'                 => 'Dasbor',
 
 
 

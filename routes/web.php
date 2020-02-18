@@ -15,9 +15,15 @@ Route::get('optimize', function () {
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
+Route::post('authlogin', 'HomeController@Masuk');
+Route::get('presensi', 'HomeController@Presensi');
 
-Route::get('presensi', function () {
-    return view('guest.absen');
+Route::get('cek', function () {
+        return \Carbon\Carbon::now()->toDateString();
 });
 
+Route::get('keluar', function () {
+        Auth::logout();
+        return redirect()->route('home');
+});

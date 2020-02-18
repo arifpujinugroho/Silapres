@@ -15,6 +15,9 @@ class CreateEventTable extends Migration
     {
         Schema::create('event', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('keys_event');
+            $table->text('validate_event');
+            $table->string('tgl_event');
             $table->bigInteger('creator_event');
             $table->string('nama_event');
             $table->string('lokasi_event');

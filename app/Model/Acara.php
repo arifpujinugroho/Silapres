@@ -1,12 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Acara extends Model
 {
     //
     protected $table ="event";
-
 }

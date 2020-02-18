@@ -13,6 +13,8 @@ return [
     'identity_number'               => '識別番号',
     'identity'                      => '身元',
     'institution'                   => '機関',
+    'navigation'                    => 'ナビゲーション',
+    'dashboard'                     => 'ダッシュボード',
 
 
 

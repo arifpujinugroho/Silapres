@@ -12,6 +12,8 @@ return [
     'identity_number'           => 'Identity Number',
     'identity'                  => 'Identity',
     'institution'               => 'Institution',
+    'navigation'                => 'Navigation',
+    'dashboard'                => 'Dashboard',
 
 
 

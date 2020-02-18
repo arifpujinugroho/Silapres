@@ -13,6 +13,8 @@ return [
     'identity_number'           => '식별 번호',
     'identity'                  => '정체',
     'institution'               => '제도',
+    'navigation'                => '항해',
+    'dashboard'                 => '계기반',
 
 
 
