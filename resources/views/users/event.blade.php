@@ -58,10 +58,28 @@
                     </button>
             </div>
             <div class="modal-body">
-
+                <input type="hidden" id="kode_event">
+                <div class="form-group">
+                  <label for="">{{trans('app.event_name')}}</label>
+                  <input type="text" class="form-control" id="event_name" aria-describedby="helpId" placeholder="{{trans('app.event_name')}}">
+                </div>
+                <div class="form-group">
+                  <label for="">{{trans('app.event_date')}}</label>
+                  <input type="date" class="form-control" id="event_date" aria-describedby="helpId" placeholder="{{trans('app.event_date')}}">
+                </div>
+                <div class="form-group">
+                  <label for="">{{trans('app.event_location')}}</label>
+                  <input type="text" class="form-control" id="event_location" aria-describedby="helpId" placeholder="{{trans('app.event_location')}}">
+                </div>
+                <div class="form-group">
+                  <label for="">{{trans('app.pic_event')}}</label>
+                  <input type="text" class="form-control" id="event_pic" aria-describedby="helpId" placeholder="{{trans('app.pic_event')}}">
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-mini btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btn_save_event" class="btn btn-mini btn-success">{{ trans('app.save') }}</button>
+                <button type="button" id="btn_edit_event" class="btn btn-mini btn-warning">{{ trans('app.edit') }}</button>
+                <button type="button" class="btn btn-mini btn-secondary" data-dismiss="modal">{{ trans('app.close') }}</button>
             </div>
         </div>
     </div>
@@ -74,8 +92,28 @@
 <script>
 $(document).ready(function() {
     var thisurl = $('#thisurl').val();
+    var token = $('#token').val();
 
     var table = $('#memberTable').DataTable({
+        'dom': 'Bfrtip',
+        'buttons': [
+            {
+                text: '{{ trans("app.add_event") }}',
+                className: 'btn-mini',
+                action: function(e, dt, node, config) {
+                   $('#labellihatToko').html('{{trans("app.add_event")}}');
+                   $('#kode_event').val('');
+                   $('#event_name').val('');
+                   $('#event_date').val('');
+                   $('#event_location').val('');
+                   $('#event_pic').val('');
+
+                   $('#btn_save_event').show();
+                   $('#btn_edit_event').hide();
+                   $('#lihatSurat').modal('show');
+                }
+            },
+        ],
         'serverMethod': 'get',
         "paging": true,
         "processing": true,
@@ -85,9 +123,9 @@ $(document).ready(function() {
         //"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "language": {
             @if(Lang::locale() == 'kr')
-            "url": "{{ url('assets/json/kr.json') }}"
+            'url': '{{ url("assets/json/kr.json") }}'
             @elseif(Lang::locale() == 'en')
-            "url": "{{ url('assets/json/en.json') }}"
+            'url': "{{ url('assets/json/en.json') }}"
             @elseif(Lang::locale() == 'id')
             "url": "{{ url('assets/json/id.json') }}"
             @elseif(Lang::locale() == 'jp')
@@ -95,14 +133,14 @@ $(document).ready(function() {
             @endif
         },
         'ajax': {
-            'url': thisurl+'/listevent',
+            'url': '{{ url("/listevent") }}',
             'dataSrc': '',
         },
         'columns': [
             {
                 data: null,
                 render: function(data, type, full, row) {
-                    return '<img src="'+thisurl+'/files/pasfoto/'+data.foto+'" alt="foto '+data.name+'" data-file="'+data.foto+'" data-nama="'+data.name+'" class="pasfoto img img-rounded img-50"> '+data.name;
+                    return '<a href="'+thisurl+'/event/'+data.keys_event+'"><button class="btn btn-mini btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>';
                 }
             },
             {
@@ -124,81 +162,57 @@ $(document).ready(function() {
         table.ajax.reload();
     });
 
-    $('#memberTable tbody').on('click', '.pasfoto', function() {
-        var file = $(this).data('file');
-        var nama = $(this).data('nama');
-        $('#labellihatToko').html('Lihat Foto '+nama);
-        $('#lihatBody').html('<img class="img img-fluid" src="'+thisurl+'/files/pasfoto/'+file+'">');
-        $('#lihatSurat').modal('show');
-    });
+    // $('#memberTable tbody').on('click', '.pasfoto', function() {
+    //     var file = $(this).data('file');
+    //     var nama = $(this).data('nama');
+    //     $('#labellihatToko').html('Lihat Foto '+nama);
+    //     $('#lihatBody').html('<img class="img img-fluid" src="'+thisurl+'/files/pasfoto/'+file+'">');
+    //     $('#lihatSurat').modal('show');
+    // });
+    $('#btn_save_event').click(function(){
+        var name = $('#event_name').val();
+        var date = $('#event_date').val();
+        var location = $('#event_location').val();
+        var pic = $('#event_pic').val();
 
-    $('#memberTable tbody').on('click', '.lihatBukti', function() {
-        var file = $(this).data('file');
-        var nama = $(this).data('nama');
-        $('#labellihatToko').html('Bukti Pembayaran '+nama);
-        $('#lihatBody').html('<img class="img img-fluid" src="'+thisurl+'/files/bukti/'+file+'">');
-        $('#lihatSurat').modal('show');
-    });
-
-
-    $('#memberTable tbody').on('click', '.accAnggota', function() {
-        var id = $(this).data('id');
-        var nama = $(this).data('nama');
-
-        swal({
-            title: "Terima "+nama+"??",
-            text: "Apakah anda ingin menerima "+nama+" sebagai anggota?",
-            type: "info",
-            showCancelButton: true,
-            showLoaderOnConfirm: true,
-            confirmButtonText: "Terima",
-            closeOnConfirm: false
-        }, function() {
-            $.ajax({
-                url: thisurl+'/accanggota',
-                type: "GET",
-                data: {
-                    id: id,
-                },
-                success: function() {
-                    table.ajax.reload();
-                    swal(" Diterima", "Anda berhasil menerima "+nama, "success");
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    swal("Error Diterima!", "Silakan Coba Lagi", "error");
-                }
-            });
-        });
-    });
-
-    $('#memberTable tbody').on('click', '.resetAnggota', function() {
-        var id = $(this).data('id');
-        var nama = $(this).data('nama');
-
-        swal({
-            title: "Reset akun "+nama+"??",
-            text: "Apakah anda ingin mereset akun "+nama+"?",
-            type: "warning",
-            showCancelButton: true,
-            showLoaderOnConfirm: true,
-            confirmButtonText: "Reset",
-            closeOnConfirm: false
-        }, function() {
-            $.ajax({
-                url: thisurl+'/resetanggota',
-                type: "GET",
-                data: {
-                    id: id,
-                },
-                success: function() {
-                    table.ajax.reload();
-                    swal("Akun Direset", "Password akun "+nama+" sama dengan email", "success");
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    swal("Error Direset!", "Silakan Coba Lagi", "error");
-                }
-            });
-        });
+        if(name != "" && date != "" && location != ""){
+                $.post("{{ URL::to('/addevent') }}", {
+                    _token : token,
+	            	name: name,
+	            	date: date,
+                    location: location,
+                    pic : pic
+	            })
+	            .done(function(result) {
+	            		if ($.isNumeric(result)) {
+                            $('#lihatSurat').modal('hide');
+                            table.ajax.reload();
+                            swal("{{trans('notif.success')}}", "{{trans('notif.data_save')}}", "success");
+	            		} else {
+                            new PNotify({
+	                        	title: '{{ trans("notif.wrong_server") }}',
+	                        	text: '{{ trans("notif.reload_page") }}',
+	                        	icon: 'icofont icofont-info-circle',
+	                        	type: 'error'
+	                        });
+	            		};
+	            })
+	            .fail(function() {
+                    new PNotify({
+	                	title: '{{ trans("notif.wrong_server") }}',
+	                	text: '{{ trans("notif.reload_page") }}',
+	                	icon: 'icofont icofont-info-circle',
+	                	type: 'error'
+	                });
+                });
+        }else{
+            new PNotify({
+	        	title: '{{ trans("notif.form_empty") }}',
+	        	text: '{{ trans("notif.form_check") }}',
+	        	icon: 'icofont icofont-info-circle',
+	        	type: 'error'
+	        });
+        }
     });
 });
 

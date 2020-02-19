@@ -15,9 +15,9 @@ Route::get('optimize', function () {
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::post('authlogin', 'HomeController@Masuk');
-Route::get('presensi', 'HomeController@Presensi');
+Route::get('/', 'GuestController@index')->name('home');
+Route::post('authlogin', 'GuestController@Masuk');
+Route::get('presensi', 'GuestController@Presensi');
 
 Route::get('cek', function () {
         return \Carbon\Carbon::now()->toDateString();
@@ -26,9 +26,11 @@ Route::get('cek', function () {
 Route::group(['middleware' => ['auth']], function () {
         Route::get('event', 'AuthController@Event');
         Route::get('listevent', 'AuthController@ListEvent');
-});
+
+        Route::post('addevent', 'AuthController@AddEvent');
+    });
 
 Route::get('keluar', function () {
-        Auth::logout();
-        return redirect()->route('home');
+    Auth::logout();
+    return redirect('/')->with('login','logout');
 });

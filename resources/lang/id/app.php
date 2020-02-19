@@ -20,6 +20,12 @@ return [
     'event_location'            => 'Lokasi Acara',
     'pic_event'                 => 'Penanggung Jawab Acara',
     'action'                    => 'Action',
+    'add_event'                 => 'Tambah Acara',
+    'edit_event'                => 'Edit Acara',
+    'edit'                      => 'Edit',
+    'save'                      => 'Simpan',
+    'delete'                    => 'Hapus',
+    'close'                     => 'Tutup',
 
 
 

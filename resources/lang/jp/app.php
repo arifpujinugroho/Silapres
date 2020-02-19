@@ -20,6 +20,12 @@ return [
     'event_location'                => 'イベントの場所',
     'pic_event'                     => 'イベント担当者',
     'action'                        => 'アクション',
+    'add_event'                     => 'イベントを追加',
+    'edit_event'                    => 'イベントを編集',
+    'edit'                          => '編集',
+    'save'                          => 'セーブ',
+    'delete'                        => '削除する',
+    'close'                         => '閉じる',
 
 
 

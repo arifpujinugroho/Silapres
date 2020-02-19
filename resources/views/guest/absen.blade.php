@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-#namaacara
+{{ $e->nama_event }}
 @stop
 
 @section('footer')
@@ -23,7 +23,7 @@
                     <div class="card-header">
                         <div class="card-header-left">
                             <h5>{{ trans('app.event') }}</h5>
-                            <p class="p-t-10 m-b-0 text-c-blue">#namaacara</p>
+                            <p class="p-t-10 m-b-0 text-c-blue">{{ $e->nama_event }}</p>
                         </div>
                     </div>
                     <div class="card-block">

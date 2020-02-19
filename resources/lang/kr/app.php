@@ -20,6 +20,12 @@ return [
     'event_location'            => '행사 장소',
     'pic_event'                 => '이벤트 담당자',
     'action'                    => '행동',
+    'add_event'                 => '이벤트 추가',
+    'edit_event'                => '이벤트 수정',
+    'edit'                      => '편집하다',
+    'save'                      => '저장',
+    'delete'                    => '삭제',
+    'close'                     => '닫기',
 
 
 

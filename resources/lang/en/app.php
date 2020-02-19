@@ -19,6 +19,12 @@ return [
     'event_location'            => 'Event Location',
     'pic_event'                 => 'Event Person in Charge',
     'action'                    => 'Action',
+    'add_event'                 => 'Add Event',
+    'edit_event'                => 'Edit Event',
+    'edit'                      => 'Edit',
+    'save'                      => 'Save',
+    'delete'                    => 'Delete',
+    'close'                     => 'Close',
 
 
 

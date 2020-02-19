@@ -316,27 +316,40 @@
     <script src="{{url('assets/js/pcoded.min.js')}}"></script>
 
     @auth
+        @if(Request::path() != 'presensi')
+            <?php
+            date_default_timezone_set("Asia/Jakarta");
+            $b = time();
+            $hour = date("G",$b);
+            ?>
+            @if ($hour >= 18 || $hour <= 6 ) <script src="{{asset('assets/js/demo-dark.js')}}">
+             </script>
+             @else
+             <script src="{{asset('assets/js/demo-12.js')}}"></script>
+             @endif
+         @else
+             <?php
+            date_default_timezone_set("Asia/Jakarta");
+            $b = time();
+            $hour = date("G",$b);
+            ?>
+            @if ($hour >= 18 || $hour <= 6 ) <script src="{{asset('assets/js/darkhome.js')}}">
+            </script>
+            @else
+            <script src="{{asset('assets/js/lighthome.js')}}"></script>
+            @endif
+        @endif
+    @else
         <?php
         date_default_timezone_set("Asia/Jakarta");
         $b = time();
         $hour = date("G",$b);
         ?>
-        @if ($hour >= 18 || $hour <= 6 ) <script src="{{asset('assets/js/demo-dark.js')}}">
-         </script>
-         @else
-         <script src="{{asset('assets/js/demo-12.js')}}"></script>
-         @endif
-    @else
-    <?php
-    date_default_timezone_set("Asia/Jakarta");
-    $b = time();
-    $hour = date("G",$b);
-    ?>
-    @if ($hour >= 18 || $hour <= 6 ) <script src="{{asset('assets/js/darkhome.js')}}">
-        </script>
-        @else
-        <script src="{{asset('assets/js/lighthome.js')}}"></script>
-        @endif
+            @if ($hour >= 18 || $hour <= 6 ) <script src="{{asset('assets/js/darkhome.js')}}">
+            </script>
+            @else
+            <script src="{{asset('assets/js/lighthome.js')}}"></script>
+            @endif
     @endif
         <script src="{{url('assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
         <script type="text/javascript" src="{{url('assets/js/script.js')}}"></script>

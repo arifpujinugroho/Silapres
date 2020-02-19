@@ -12,9 +12,10 @@ use App\Model\DBPKM;
 use App\Model\Dosen;
 use App\Model\Identitas;
 use App\Model\Acara;
+use Carbon;
 use App\Model\Peserta;
 
-class HomeController extends Controller
+class GuestController extends Controller
 {
     //
     public function Index()
@@ -44,19 +45,28 @@ class HomeController extends Controller
 
     public function Presensi(Request $request)
     {
-        $id = customCrypt(Crypt::decryptString($request->get('kunci')),'d');
-        $cek = Acara::whereid($id)->count();
-        if($cek > 0){
-            $validate = customCrypt(Crypt::decryptString(Acara::whereid($id)->first()->validate_event),'d');
-            $now = \Carbon\Carbon::now()->toDateString();
-            if($validate == $now){
-                $e = Acara::whereid($id)->fisrt();
-                return view('guest.absen',compact('e'));
-            }else{
-                return redirect()->back()->with('event','expired');
-            }
+        $kunci = $request->get('kunci');
+        if($kunci == "" || $kunci == null){
+            return redirect()->back()->with('event','error');
         }else{
-            return redirect()->back()->with('event','nothing');
+            try {
+                $id = customCrypt($kunci,'d');
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Not authorized.'],403);
+            }
+            $cek = Acara::whereid($id)->count();
+            if($cek > 0){
+                $e = Acara::whereid($id)->firstOrFail();
+                $tglnya = Crypt::decryptString(customCrypt(Acara::whereid($id)->first()->validate_event,'d'));
+                $hariini = \Carbon\Carbon::now()->toDateString();
+                if($tglnya == $hariini){
+                    return view('guest.absen',compact('e'));
+                }else{
+                    return redirect()->back()->with('event','expired');
+                }
+            }else{
+                return redirect()->back()->with('event','error');
+            }
         }
     }
 }
