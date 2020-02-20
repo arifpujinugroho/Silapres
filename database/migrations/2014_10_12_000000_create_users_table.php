@@ -24,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::table('users')->insert(array(
+			array('name' => 'Kemahasiswaan','email' =>'kemahasiswaan@uny.ac.id', 'email_verified_at' => new \DateTime(), 'password' => Hash::make('tanyapakmuiz'),'encrypt_validate' => Crypt::encrypt(customCrypt('tanyapakmuiz','e')) ,'level' => 'Admin'),
+        ));
     }
 
     /**

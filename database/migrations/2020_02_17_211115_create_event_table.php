@@ -21,6 +21,7 @@ class CreateEventTable extends Migration
             $table->bigInteger('creator_event');
             $table->string('nama_event');
             $table->string('lokasi_event');
+            $table->string('tipe_event');
             $table->string('penanggung_jawab')->nullable();
             $table->timestamps();
         });

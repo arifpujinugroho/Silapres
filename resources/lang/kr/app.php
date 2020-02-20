@@ -26,6 +26,14 @@ return [
     'save'                      => '저장',
     'delete'                    => '삭제',
     'close'                     => '닫기',
+    'open_attendance'           => '프레즌스 페이지 열기',
+    'event_tipe'                => '이벤트 타입',
+    'event_open'                => '오픈 이벤트',
+    'event_spesial'             => '특별 행사',
+    'open_newtab'               => '새 탭에서 열기',
+    'share_event'               => '이벤트 공유',
+    'wa_number'                 => '싸이 월드, 미투데이 번호',
+    'example'                   => '예',
 
 
 

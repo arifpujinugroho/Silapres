@@ -26,6 +26,14 @@ return [
     'save'                          => 'セーブ',
     'delete'                        => '削除する',
     'close'                         => '閉じる',
+    'open_attendance'               => 'プレゼンスページを開く',
+    'event_tipe'                    => 'イベントの種類',
+    'event_open'                    => 'オープンイベント',
+    'event_spesial'                 => '特別な行事',
+    'open_newtab'                   => '新しいタブで開く',
+    'share_event'                   => '共有イベント',
+    'wa_number'                     => 'Whatsapp 番号',
+    'example'                       => '例',
 
 
 

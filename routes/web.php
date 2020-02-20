@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('listevent', 'AuthController@ListEvent');
 
         Route::post('addevent', 'AuthController@AddEvent');
+        Route::post('editevent', 'AuthController@EditEvent');
     });
 
 Route::get('keluar', function () {

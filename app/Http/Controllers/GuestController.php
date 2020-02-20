@@ -62,7 +62,8 @@ class GuestController extends Controller
                 if($tglnya == $hariini){
                     return view('guest.absen',compact('e'));
                 }else{
-                    return redirect()->back()->with('event','expired');
+                    $p = Acara::whereid($id)->select('nama_event','tgl_event')->firstOrFail();
+                    return view('error.nottoday',compact('p'));
                 }
             }else{
                 return redirect()->back()->with('event','error');

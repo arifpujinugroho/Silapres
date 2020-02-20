@@ -11,7 +11,7 @@ use Crypt;
 
 class AuthController extends Controller
 {
-    public function Event()
+    public function Event(Request $request)
     {
         return view('users.event');
     }
@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function ListEvent()
     {
         $idme = Auth::user()->id;
-        return Acara::select('keys_event','tgl_event','nama_event','lokasi_event','penanggung_jawab')->where('creator_event','=',$idme)->get();
+        return Acara::select('keys_event','tipe_event','tgl_event','nama_event','lokasi_event','penanggung_jawab')->where('creator_event','=',$idme)->get();
     }
 
     public function AddEvent(Request $request)
@@ -28,6 +28,7 @@ class AuthController extends Controller
             'name' => 'required',
             'date' => 'required|date',
             'location' => 'required',
+            'tipe' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -42,6 +43,7 @@ class AuthController extends Controller
             $a->tgl_event = $request->get('date');
             $a->lokasi_event = $request->get('location');
             $a->penanggung_jawab = $request->get('pic');
+            $a->tipe_event = $request->get('tipe');
             $a->creator_event = Auth::user()->id;
             $a->validate_event = customCrypt(Crypt::encryptString($request->get('date')),'e');
             $a->save();
@@ -65,20 +67,22 @@ class AuthController extends Controller
             'name' => 'required',
             'date' => 'required|date',
             'location' => 'required',
+            'tipe' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('validator', 'failed');
+            return response()->json(['error' => 'Not authorized.'],403);
         }
 
         DB::beginTransaction();
         try {
-            $a = Acara::whereid(Crypt::decryptString(customCrypt($request->get('key'),'d')))->first();
+            $a = Acara::whereid(customCrypt($request->get('key'),'d'))->first();
             $a->nama_event = $request->get('name');
             $a->tgl_event = $request->get('date');
             $a->lokasi_event = $request->get('location');
             $a->penanggung_jawab = $request->get('pic');
-            $a->validate_event = customCrypt(Crypt::encryptString('date'),'e');
+            $a->tipe_event = $request->get('tipe');
+            $a->validate_event = customCrypt(Crypt::encryptString($request->get('date')),'e');
             $a->save();
 
             DB::commit();

@@ -25,6 +25,14 @@ return [
     'save'                      => 'Save',
     'delete'                    => 'Delete',
     'close'                     => 'Close',
+    'open_attendance'           => 'Open the Presence Page',
+    'event_tipe'                => 'Event Type',
+    'event_open'                => 'Open Event',
+    'event_spesial'             => 'Special Occasion',
+    'open_newtab'               => 'Open in New Tab',
+    'share_event'               => 'Share Event',
+    'wa_number'                 => 'Whatsapp Number',
+    'example'                   => 'Example',
 
 
 

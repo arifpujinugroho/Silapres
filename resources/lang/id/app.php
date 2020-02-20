@@ -26,6 +26,14 @@ return [
     'save'                      => 'Simpan',
     'delete'                    => 'Hapus',
     'close'                     => 'Tutup',
+    'open_attendance'           => 'Buka Halaman Presensi',
+    'event_tipe'                => 'Tipe Acara',
+    'event_open'                => 'Acara Terbuka',
+    'event_spesial'             => 'Acara Khusus',
+    'open_newtab'               => 'Buka di Tab Baru',
+    'share_event'               => 'Bagikan Acara',
+    'wa_number'                 => 'Nomor Whatsapp',
+    'example'                   => 'Contoh',
 
 
 

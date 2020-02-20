@@ -67,6 +67,8 @@
 <body>
 <input type="hidden" id="token" value="{{ csrf_token() }}">
 <input type="hidden" id="thisurl" value="{{url('/')}}">
+<input type="hidden" id="datenow" value="{{\Carbon\Carbon::now()->toDateString()}}">
+<input type="hidden" id="language" value="{{Lang::locale()}}">
     <!-- Pre-loader start -->
     <div class="theme-loader">
         <div class="ball-scale">
