@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Acara;
+use App\Model\Tahun;
 use Auth;
 use Validator;
 use DB;
@@ -13,7 +14,13 @@ class AuthController extends Controller
 {
     public function Event(Request $request)
     {
-        return view('users.event');
+        if($tahun = $request->get('tahun')){
+            $cek=Tahun::whereid($tahun = $request->get('tahun'))->firstOrFail();
+            return view('users.event',compact('tahun'));
+        }else{
+            $thn = Tahun::all();
+            return view('users.pilihtahun',compact('thn'));
+        }
     }
 
     public function ListEvent()
@@ -36,9 +43,12 @@ class AuthController extends Controller
             return response()->json(['error' => 'Not authorized.'],403);
         }
 
+        $tahun = Tahun::wheretahun(date('Y', strtotime($request->get('date'))))->firstOrFail();
+
         DB::beginTransaction();
         try {
             $a = new Acara();
+            $a->id_tahun = $tahun->id;
             $a->nama_event = $request->get('name');
             $a->tgl_event = $request->get('date');
             $a->lokasi_event = $request->get('location');
@@ -73,10 +83,12 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => 'Not authorized.'],403);
         }
+        $tahun = Tahun::wheretahun(date('Y', strtotime($request->get('date'))))->firstOrFail();
 
         DB::beginTransaction();
         try {
             $a = Acara::whereid(customCrypt($request->get('key'),'d'))->first();
+            $a->id_tahun = $tahun->id;
             $a->nama_event = $request->get('name');
             $a->tgl_event = $request->get('date');
             $a->lokasi_event = $request->get('location');

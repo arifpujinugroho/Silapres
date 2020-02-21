@@ -14,6 +14,7 @@
 
 @section('content')
 <!-- Page-body start -->
+<input type="hidden" id="thisyear" value="{{request('tahun')}}">
 <div class="page-body">
     <div class="row">
         <div class="col-sm-12">
@@ -33,7 +34,7 @@
                         <th>{{ trans('app.event_name') }}</th>
                         <th>{{ trans('app.event_date') }}</th>
                         <th>{{ trans('app.event_location') }}</th>
-                        <th>{{trans('app.event_tipe')}}</th>
+                        <th>{{ trans('app.event_tipe') }}</th>
                         <th>{{ trans('app.pic_event') }}</th>
                     </thead>
                 </table>
@@ -143,10 +144,11 @@
 <!-- data-table js -->
 <script>
 $(document).ready(function() {
-    var thisurl = $('#thisurl').val();
-    var token = $('#token').val();
-    var lang = $('#language').val();
-    var datenow = $('#datenow').val();
+    var token       = $('#token').val();
+    var thisurl     = $('#thisurl').val();
+    var datenow     = $('#datenow').val();
+    var lang        = $('#language').val();
+    var thisyear    = $('#thisyear').val();
 
     var table = $('#memberTable').DataTable({
         'dom': 'Bfrtip',
@@ -180,7 +182,7 @@ $(document).ready(function() {
             "url": thisurl+'/assets/json/'+lang+'.json'
         },
         'ajax': {
-            'url': thisurl+'/listevent',
+            'url': thisurl+'/listevent?tahun='+thisyear,
             'dataSrc': '',
         },
         'columns': [
