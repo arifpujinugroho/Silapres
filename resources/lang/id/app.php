@@ -34,6 +34,12 @@ return [
     'share_event'               => 'Bagikan Acara',
     'wa_number'                 => 'Nomor Whatsapp',
     'example'                   => 'Contoh',
+    'choose_year'               => 'Pilih Tahun',
+    'detail_choose_year'        => 'Pilih Tahun untuk Daftar Hadir',
+    'event_list'                => 'Daftar Acara',
+    'search'                    => 'Cari',
+    'come'                      => 'Datang',
+    'out'                       => 'Pulang',
 
 
 

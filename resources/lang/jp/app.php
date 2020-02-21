@@ -34,6 +34,12 @@ return [
     'share_event'                   => '共有イベント',
     'wa_number'                     => 'Whatsapp 番号',
     'example'                       => '例',
+    'choose_year'                   => '年を選択してください',
+    'detail_choose_year'            => '出席リストの年を選択してください',
+    'event_list'                    => 'イベントリスト',
+    'search'                        => '探す',
+    'come'                          => 'おいで',
+    'out'                           => 'でる',
 
 
 

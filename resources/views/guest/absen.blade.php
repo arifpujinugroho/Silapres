@@ -28,6 +28,12 @@
                     </div>
                     <div class="card-block">
                         <i class="icofont  icofont-presentation-alt st-icon bg-c-blue"></i>
+                        <div class="form-group">
+                          <select class="form-control" id="tipeabsen">
+                            <option value="in">{{trans('app.come')}}</option>
+                            <option value="out">{{ trans('app.out') }}</option>
+                          </select>
+                        </div>
                         <input type="text" class="form-control" id="identitas"  placeholder="{{ trans('app.identity_number') }} / {{ trans('auth.email') }}">
                     </div>
                 </div>
@@ -46,19 +52,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-md-12">
-                <div class="card widget-statstic-card">
-                    <div class="card-header">
-                        <div class="card-header-left">
-                            <h5>{{ trans('app.time') }}</h5>
-                            <p class="p-t-10 m-b-0 text-c-yellow" id="timeServer"></p>
-                        </div>
-                    </div>
-                    <div class="card-block">
-                        <i class="icofont icofont-chart-line st-icon bg-c-yellow"></i>
-                    </div>
-                </div>
-            </div> -->
 
         </dic>
         <!-- statstic card end -->
@@ -101,8 +94,31 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 
+@endsection
+
+@section('end')
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                Body
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

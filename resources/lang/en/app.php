@@ -33,6 +33,12 @@ return [
     'share_event'               => 'Share Event',
     'wa_number'                 => 'Whatsapp Number',
     'example'                   => 'Example',
+    'choose_year'               => 'Choose Year',
+    'detail_choose_year'        => 'Select the year for the attendance list',
+    'event_list'                => 'Event List',
+    'search'                    => 'Search',
+    'come'                      => 'Come',
+    'out'                       => 'Out',
 
 
 

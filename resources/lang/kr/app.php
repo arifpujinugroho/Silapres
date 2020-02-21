@@ -34,6 +34,12 @@ return [
     'share_event'               => '이벤트 공유',
     'wa_number'                 => '싸이 월드, 미투데이 번호',
     'example'                   => '예',
+    'choose_year'               => '연도를 선택하십시오',
+    'detail_choose_year'        => '출석 목록의 연도를 선택하십시오',
+    'event_list'                => '이벤트리스트',
+    'search'                    => '검색',
+    'come'                      => '왔다',
+    'out'                       => '밖',
 
 
 
