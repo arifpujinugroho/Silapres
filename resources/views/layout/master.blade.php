@@ -7,6 +7,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    @if(Request::path() == 'presensi')
+    <meta property="og:description" content="{{$e->nama_event}} (@if(Lang::locale() == 'en'){{ date('F dS, Y', strtotime($e->tgl_event)) }} @elseif(Lang::locale() == 'jp'){{ date('Y', strtotime($e->tgl_event)) }}年 {{date('m', strtotime($e->tgl_event))}}月 {{date('d', strtotime($e->tgl_event))}}日 @elseif(Lang::locale() == 'kr') {{ date('Y', strtotime($e->tgl_event)) }}년 {{date('m', strtotime($e->tgl_event))}}월 {{date('d', strtotime($e->tgl_event))}}일 @elseif(Lang::locale() == 'id') {{ tglIndo($e->tgl_event, false) }} @endif)">
+    @else
+    <meta property="og:description" content="@yield('title') || SILAPRES">
+    @endif
     <meta name="author" content="Web Developer PKM UNY - Arif Puji Nugroho">
 
     <!-- Google font-->
