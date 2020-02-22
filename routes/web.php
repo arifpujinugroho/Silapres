@@ -19,8 +19,8 @@ Route::get('/', 'GuestController@index')->name('home');
 Route::post('authlogin', 'GuestController@Masuk');
 Route::get('presensi', 'GuestController@Presensi');
 
-Route::get('cek', function () {
-        return \Carbon\Carbon::now()->toDateString();
+Route::get('cek/{t}', function ($t) {
+        return CekEvent($t);
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('listevent', 'AuthController@ListEvent');
         Route::get('event/{kunci}', 'AuthController@DaftarHadir');
         Route::get('listdaftarhadir', 'AuthController@ListDaftarHadir');
+        Route::get('cekdb', 'AuthController@CekDB');
 
         Route::post('addevent', 'AuthController@AddEvent');
         Route::post('editevent', 'AuthController@EditEvent');

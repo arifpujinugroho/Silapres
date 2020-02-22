@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Acara;
 use App\Model\Peserta;
 use App\Model\Tahun;
+use App\Model\Identitas;
 use Auth;
 use Validator;
 use DB;
@@ -121,6 +122,26 @@ class AuthController extends Controller
         } catch (\Exception $e) {
                 DB::rollback();
                 return response()->json(['error' => 'Not authorized.'],403);
+        }
+    }
+    public function CekDB(Request $request)
+    {
+        $input = $request->get('input');
+        $iden = Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->count();
+        if($iden == 1){
+            return Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+        }else{
+            $cekMhs = CekMhs($input);
+            if(is_object($cekMhs)){
+                return Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+            }else{
+                $cekDsn = CekDsn($input);
+                if(is_object($cekDsn)){
+                    return Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+                }else{
+                    return "";
+                }
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Crypt;
 use \Illuminate\Support\HtmlString;
 use App\Modal\AddConfig;
+use App\Model\Acara;
 
 function tglIndo($tanggal, $cetak_hari){
     $hari = array ( 1 =>    'Senin',
@@ -52,4 +54,21 @@ function customCrypt( $string, $action) {
         $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
     }
     return $output;
+}
+
+function CekEvent($id)
+{
+    $cek = Acara::whereid($id)->count();
+    if($cek > 0){
+        $e = Acara::whereid($id)->firstOrFail();
+        $tglnya = Crypt::decryptString(customCrypt(Acara::whereid($id)->first()->validate_event,'d'));
+        $hariini = \Carbon\Carbon::now()->toDateString();
+        if($tglnya == $hariini){
+            return "Ready";
+        }else{
+            return "";
+        }
+    }else{
+        return "";
+    }
 }
