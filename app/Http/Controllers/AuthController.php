@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Acara;
+use App\Model\Peserta;
 use App\Model\Tahun;
 use Auth;
 use Validator;
@@ -23,10 +24,28 @@ class AuthController extends Controller
         }
     }
 
-    public function ListEvent()
+    public function ListEvent(Request $request)
+    {
+        $tahun = $request->get('tahun');
+        $idme = Auth::user()->id;
+        return Acara::select('keys_event','tipe_event','tgl_event','nama_event','lokasi_event','penanggung_jawab')->where('creator_event','=',$idme)->where('id_tahun','=', $tahun)->get();
+    }
+
+    public function DaftarHadir($kunci)
     {
         $idme = Auth::user()->id;
-        return Acara::select('keys_event','tipe_event','tgl_event','nama_event','lokasi_event','penanggung_jawab')->where('creator_event','=',$idme)->get();
+        $e = Acara::whereid(customCrypt($kunci,'d'))->where('creator_event','=',$idme)->firstOrFail();
+        if($e->tipe_event == 1){
+            return view('users.daftarhadir',compact('e'));
+        }else{
+            return view('users.daftarhadirkhusus',compact('e'));
+        }
+    }
+
+    public function ListDaftarHadir(Request $request)
+    {
+        $kunci  = customCrypt($request->get('kunci'),'d');
+        return Peserta::select('nama','no_identitas','email','instansi','status','datang','pulang')->join('identitas','identitas.id','peserta.id_user')->where('peserta.id_event','=',$kunci)->get();
     }
 
     public function AddEvent(Request $request)

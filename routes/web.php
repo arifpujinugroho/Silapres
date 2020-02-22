@@ -26,6 +26,8 @@ Route::get('cek', function () {
 Route::group(['middleware' => ['auth']], function () {
         Route::get('event', 'AuthController@Event');
         Route::get('listevent', 'AuthController@ListEvent');
+        Route::get('event/{kunci}', 'AuthController@DaftarHadir');
+        Route::get('listdaftarhadir', 'AuthController@ListDaftarHadir');
 
         Route::post('addevent', 'AuthController@AddEvent');
         Route::post('editevent', 'AuthController@EditEvent');

@@ -39,6 +39,10 @@ return [
     'search'                    => 'Search',
     'come'                      => 'Come',
     'out'                       => 'Out',
+    'column_visibility'         => 'Column Visibility',
+    'length_menu'               => 'Show %d rows',
+    'all'                       => 'All',
+    'status'                    => 'Status',
 
 
 

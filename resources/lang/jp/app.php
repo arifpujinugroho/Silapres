@@ -40,7 +40,10 @@ return [
     'search'                        => '探す',
     'come'                          => 'おいで',
     'out'                           => 'でる',
-
+    'column_visibility'             => '列の可視性',
+    'length_menu'                   => '%d 行を表示',
+    'all'                           => 'すべて',
+    'status'                        => '状態',
 
 
 

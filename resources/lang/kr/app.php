@@ -40,6 +40,10 @@ return [
     'search'                    => '검색',
     'come'                      => '왔다',
     'out'                       => '밖',
+    'column_visibility'         => '열 가시성',
+    'length_menu'               => '열 %d 개 표시',
+    'all'                       => '모두',
+    'status'                    => '상태',
 
 
 

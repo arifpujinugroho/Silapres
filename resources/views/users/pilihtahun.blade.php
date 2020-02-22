@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="row seacrh-header">
-                        <div class="col-lg-6 offset-lg-3 offset-sm-6 col-sm-6 offset-sm-1 col-xs-12">
+                        <div class="col-lg-6 offset-lg-3 offset-sm-2 col-sm-8 offset-sm-1 col-xs-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading bg-primary">
                                     {{ trans('app.choose_year') }}

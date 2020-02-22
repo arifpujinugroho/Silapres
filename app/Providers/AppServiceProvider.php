@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Running with function
         require_once app_path() . '/Helper/function.php';
+        require_once app_path() . '/Helper/querylibrary.php';
 
         // Always redirect to https.
         if($this->app->environment() === 'production') {

@@ -40,6 +40,10 @@ return [
     'search'                    => 'Cari',
     'come'                      => 'Datang',
     'out'                       => 'Pulang',
+    'column_visibility'         => 'Visibilitas Kolom',
+    'length_menu'               => 'Menampilkan %d baris',
+    'all'                       => 'Semua',
+    'status'                    => 'Status',
 
 
 

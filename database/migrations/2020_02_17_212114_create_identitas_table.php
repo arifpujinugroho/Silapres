@@ -16,6 +16,8 @@ class CreateIdentitasTable extends Migration
         Schema::create('identitas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_identitas')->nullable();
+            $table->string('nidn')->nullable();
+            $table->string('nidk')->nullable();
             $table->string('nama');
             $table->string('email');
 			$table->enum('jenis_kelamin', ['L','P'])->nullable();
