@@ -21,6 +21,7 @@ return [
     'pic_event'                 => 'Penanggung Jawab Acara',
     'action'                    => 'Action',
     'add_event'                 => 'Tambah Acara',
+    'add_Participant'           => 'Tambah Peserta',
     'edit_event'                => 'Edit Acara',
     'edit'                      => 'Edit',
     'save'                      => 'Simpan',
@@ -44,6 +45,10 @@ return [
     'length_menu'               => 'Menampilkan %d baris',
     'all'                       => 'Semua',
     'status'                    => 'Status',
+    'gender'                    => 'Jenis Kelamin',
+    'male'                      => 'Laki-laki',
+    'female'                    => 'Perempuan',
+    'other'                     => 'Lainnya',
 
 
 

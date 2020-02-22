@@ -21,6 +21,7 @@ return [
     'pic_event'                     => 'イベント担当者',
     'action'                        => 'アクション',
     'add_event'                     => 'イベントを追加',
+    'add_Participant'               => '参加者を追加',
     'edit_event'                    => 'イベントを編集',
     'edit'                          => '編集',
     'save'                          => 'セーブ',
@@ -44,6 +45,10 @@ return [
     'length_menu'                   => '%d 行を表示',
     'all'                           => 'すべて',
     'status'                        => '状態',
+    'gender'                        => '性別',
+    'male'                          => '男性',
+    'female'                        => '女性',
+    'other'                         => 'その他',
 
 
 

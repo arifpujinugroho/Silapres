@@ -26,6 +26,7 @@ return [
     'change_password'           => 'Ganti Password',
     'forgot_password'           => 'Lupa Password?',
     'reset_password'            => 'Reset Password',
+    'reset'                     => 'Reset',
     'password_confirmation'     => 'Ulangi Password',
     'old_password'              => 'Password Lama',
     'new_password'              => 'Password Baru',

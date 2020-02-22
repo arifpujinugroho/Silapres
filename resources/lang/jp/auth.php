@@ -26,6 +26,7 @@ return [
     'change_password'           => 'パスワードを変更する',
     'forgot_password'           => 'パスワードをお忘れですか？',
     'reset_password'            => 'パスワードを再設定する',
+    'reset'                     => 'を再設定する',
     'password_confirmation'     => 'パスワードを再度入力してください',
     'old_password'              => '以前のパスワード',
     'new_password'              => '新しいパスワード',

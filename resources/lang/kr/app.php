@@ -21,6 +21,7 @@ return [
     'pic_event'                 => '이벤트 담당자',
     'action'                    => '행동',
     'add_event'                 => '이벤트 추가',
+    'add_Participant'           => '참가자 추가',
     'edit_event'                => '이벤트 수정',
     'edit'                      => '편집하다',
     'save'                      => '저장',
@@ -44,6 +45,10 @@ return [
     'length_menu'               => '열 %d 개 표시',
     'all'                       => '모두',
     'status'                    => '상태',
+    'gender'                    => '성별',
+    'male'                      => '男性',
+    'female'                    => '여자',
+    'other'                     => '다른',
 
 
 

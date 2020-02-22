@@ -20,6 +20,7 @@ return [
     'pic_event'                 => 'Event Person in Charge',
     'action'                    => 'Action',
     'add_event'                 => 'Add Event',
+    'add_Participant'           => 'Add Participant',
     'edit_event'                => 'Edit Event',
     'edit'                      => 'Edit',
     'save'                      => 'Save',
@@ -43,6 +44,10 @@ return [
     'length_menu'               => 'Show %d rows',
     'all'                       => 'All',
     'status'                    => 'Status',
+    'gender'                    => 'Gender',
+    'male'                      => 'Male',
+    'female'                    => 'Female',
+    'other'                     => 'Other',
 
 
 

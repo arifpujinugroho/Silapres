@@ -26,6 +26,7 @@ return [
     'change_password'           => '비밀번호 변경',
     'forgot_password'           => '비밀번호를 잊으 셨나요?',
     'reset_password'            => '암호를 재설정',
+    'reset'                     => '재설정',
     'password_confirmation'     => '비밀번호 반복',
     'old_password'              => '기존 비밀번호',
     'new_password'              => '새 비밀번호',

@@ -20,7 +20,7 @@
         <div class="col-md-12 col-sm-12 col-xl-12">
             <div class="card bg-c-blue green-contain-card ">
                 <div class="card-block-big p-t-20 p-b-20">
-                    <h4 class="p-t-0">{{ $e->nama_event }}</h4>
+                    <h4 class="p-t-0">{{ $e->nama_event }} ({{ $e->lokasi_event }})</h4>
                 </div>
                 <div class="card m-b-0 ">
                     <div class=" card-block-big p-t-20 p-b-20 ">
@@ -33,8 +33,8 @@
                                     <th>{{ trans('auth.email') }}</th>
                                     <th>{{ trans('app.come') }}</th>
                                     <th>{{ trans('app.out') }}</th>
-                                    <th>{{ trans('app.status') }}</th>
-                                    <th>{{ trans('app.institution') }}</th>
+                                    <!-- <th>{{ trans('app.status') }}</th>
+                                    <th>{{ trans('app.institution') }}</th> -->
                                     <th>{{ trans('app.action') }}</th>
                                 </thead>
                             </table>
@@ -60,79 +60,58 @@
                     </button>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="kode_event">
-                <div class="form-group">
-                  <label for="">{{trans('app.event_name')}} <strong class="text-danger">*</strong></label>
-                  <input type="text" class="form-control" id="event_name" aria-describedby="helpId" placeholder="{{trans('app.event_name')}}">
-                </div>
-                <div class="form-group">
-                  <label for="">{{trans('app.event_date')}} <strong class="text-danger">*</strong></label>
-                  <input type="date" class="form-control" id="event_date" aria-describedby="helpId" placeholder="{{trans('app.event_date')}}">
-                </div>
-                <div class="form-group">
-                  <label for="">{{trans('app.event_location')}} <strong class="text-danger">*</strong></label>
-                  <input type="text" class="form-control" id="event_location" aria-describedby="helpId" placeholder="{{trans('app.event_location')}}">
-                </div>
-                <div class="form-group">
-                  <label for="event_tipe">{{trans('app.event_tipe')}} <strong class="text-danger">*</strong></label>
-                  <select class="form-control" name="event_tipe" id="event_tipe">
-                    <option value="">-- {{trans('app.event_tipe')}} --</option>
-                    <option value="1">{{trans('app.event_open')}}</option>
-                    <option value="2">{{trans('app.event_spesial')}}</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="">{{trans('app.pic_event')}}</label>
-                  <input type="text" class="form-control" id="event_pic" aria-describedby="helpId" placeholder="{{trans('app.pic_event')}}">
-                </div>
+    	    	<div class="form-group" id="identity_form">
+    	    		<div class="input-group">
+    	    			<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+    	    			<input type="text" name="nim" id="nim" class="validate[required,custom[integer]] form-control" placeholder="{{ trans('app.identity_number') }} / {{trans('auth.email')}}">
+    	    			<span class="input-group-addon cursor-hand" id="search">{{ trans('app.search') }}<i class="fa fa-search fa-fw"></i></span>
+    	    			<span class="input-group-addon cursor-hand bg-warning" id="reset">{{ trans('auth.reset') }}<i class="fa fa-refresh fa-fw"></i></span>
+    	    		</div>
+    	    	</div>
+                <fieldset id="utama_form">
+    	    	    <div class="form-group">
+    	    	    	<div class="input-group">
+    	    	    		<span class="input-group-addon"><i class="fa fa-tag fa-fw"></i></span>
+    	    	    		<input type="email" id="peseerta_identity" class="validate[required] form-control" placeholder="{{trans('app.identity_number')}}">
+    	    	    	</div>
+    	    	    </div>
+    	    	    <div class="form-group">
+    	    	    	<div class="input-group">
+    	    	    		<span class="input-group-addon"><i class="fa fa-male fa-fw"></i></span>
+    	    	    		<input type="text" id="nama" class="validate[required] form-control" placeholder="{{trans('app.full_name')}}">
+    	    	    	</div>
+    	    	    </div>
+    	    	    <div class="form-group">
+    	    	    	<div class="input-group">
+    	    	    		<span class="input-group-addon"><i class="fa fa-university fa-fw"></i></span>
+    	    	    		<input type="text" id="instansi" class="validate[required] form-control" placeholder="{{trans('app.institution')}}">
+    	    	    	</div>
+    	    	    </div>
+                </fieldset>
+
+                <fieldset id="kedua_form">
+    	    	    <div class="form-group">
+    	    	    	<div class="input-group">
+    	    	    		<span class="input-group-addon"><i class="fa fa-at fa-fw"></i></span>
+    	    	    		<input type="email" id="email" class="validate[required] form-control" placeholder="{{trans('auth.email')}}">
+    	    	    	</div>
+    	    	    </div>
+    	    	    <div class="form-group">
+    	    	    	<div class="input-group">
+    	    	    		<span class="input-group-addon"><i class="fa fa-venus-mars fa-fw"></i></span>
+                            <select class="form-control" id="jns_kel">
+                              <option value="">-- {{ trans('app.gender') }} --</option>
+                              <option value="L">{{ trans('app.male') }}</option>
+                              <option value="P">{{ trans('app.female') }}</option>
+                            </select>
+    	    	    	</div>
+                    </div>
+                </fieldset>
             </div>
             <div class="modal-footer">
                 <button type="button" id="btn_save_event" class="btn btn-mini btn-success">{{ trans('app.save') }}</button>
                 <button type="button" id="btn_edit_event" class="btn btn-mini btn-warning">{{ trans('app.edit') }}</button>
                 <button type="button" class="btn btn-mini btn-secondary" data-dismiss="modal">{{ trans('app.close') }}</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="shareLink" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{trans('app.open_attendance')}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <div class="modal-body text-center">
-                <h5 class="namaEvent"></h5><hr>
-
-                <button class="btn btn-mini btn-primary" id="btn_open_tab"><i class="fa fa-user" aria-hidden="true"></i>{{trans('app.open_newtab')}}</button>
-                <button class="btn btn-mini btn-default" id="btn_share_modal"><i class="fa fa-share-alt" aria-hidden="true"></i>{{trans('app.share_event')}}</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="waLink" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{trans('app.open_attendance')}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <div class="modal-body text-center">
-                <div class="form-group">
-                  <label for="">{{ trans('app.wa_number') }}</label>
-                  <input type="number" class="form-control" id="nomerWa" aria-describedby="helpId" placeholder="{{trans('app.example')}} : 62858859945XX">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-mini btn-default" id="btn_share_wa"><i class="fa fa-share-alt" aria-hidden="true"></i>{{trans('app.share_event')}}</button>
             </div>
         </div>
     </div>
@@ -155,21 +134,43 @@ $(document).ready(function() {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "{{ trans('app.all') }}"]],
         'buttons': [
             {
-                text: '{{ trans("app.add_event") }}',
-                //  className: 'btn-mini',
-                action: function(e, dt, node, config) {
-                   $('#labellihatToko').html('{{trans("app.add_event")}}');
-                   $('#kode_event').val('');
-                   $('#event_name').val('');
-                   $('#event_date').val('');
-                   $('#event_location').val('');
-                   $('#event_pic').val('');
-                   $('#event_tipe').val('');
+                extend: 'collection',
+                text: '{{ trans("app.add_Participant") }}',
+                buttons: [
+                    {
+                        text: 'UNY',
+                        //  className: 'btn-mini',
+                        action: function(e, dt, node, config) {
+                           $('#labellihatToko').html('{{ trans("app.add_Participant") }}');
+                           $('#identity_form').show();
+                           $('#nim').removeAttr('disabled');
+                           $('#search').show();
+                           $('#reset').hide();
 
-                   $('#btn_save_event').show();
-                   $('#btn_edit_event').hide();
-                   $('#lihatSurat').modal('show');
-                }
+                           $('#utama_form').attr('disabled','disabled');
+                           $('#kedua_form').attr('disabled','disabled');
+                           $('#kedua_form').hide();
+                           $('#btn_save_event').attr('disabled','disabled');
+                           $('#btn_edit_event').hide();
+                           $('#lihatSurat').modal('show');
+                        }
+                    },
+                    {
+                        text: '{{ trans("app.other") }}',
+                        //  className: 'btn-mini',
+                        action: function(e, dt, node, config) {
+                           $('#labellihatToko').html('{{ trans("app.add_Participant") }}');
+                           $('#identity_form').hide();
+
+                           $('#utama_form').removeAttr('disabled');
+                           $('#kedua_form').removeAttr('disabled');
+                           $('#kedua_form').show();
+                           $('#btn_save_event').attr('disabled','disabled');
+                           $('#btn_edit_event').hide();
+                           $('#lihatSurat').modal('show');
+                        }
+                    },
+                ]
             },
             {
                 extend: 'pageLength',
@@ -246,12 +247,12 @@ $(document).ready(function() {
             {
                 data : 'pulang'
             },
-            {
-                data : 'status'
-            },
-            {
-                data : 'instansi'
-            },
+            // {
+            //     data : 'status'
+            // },
+            // {
+            //     data : 'instansi'
+            // },
         ]
     });
 
