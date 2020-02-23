@@ -1,5 +1,6 @@
 <script>
 $(document).ready(function(){
+$('.modal').css('margin-top', (Math.floor((window.innerHeight - $('.modal')[0].offsetHeight) / 2) + 'px'));
 
 $('#identitas').focus();
 
@@ -31,6 +32,7 @@ document.getElementById('identitas').onkeypress = function(e){
     var keyCode = e.keyCode || e.which;
     if (keyCode == '13'){
 
+    $('#modelLoading').modal('show');
       // Enter pressed
       $.get("{{ URL::to('/inputpresensi') }}", {
         //   _token : token,
@@ -40,22 +42,28 @@ document.getElementById('identitas').onkeypress = function(e){
 	  })
 	  .done(function(result) {
 	  		if (result == "Checked") {
+                  $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
                 swal("{{trans('error')}}", "{{trans('notif.checked')}}", "warning");
                 $('#identitas').val("");
                 $('#identitas').focus();
 	  		} else if(result == "Denied"){
+                  $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
                   alert('Denied');
                 $('#identitas').val("");
                 $('#identitas').focus();
 	  		} else if(result == 'error'){
+                // $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
+                $("#modelLoading").modal("hide");
                     alert('Error');
                 $('#identitas').val("");
                 $('#identitas').focus();
             } else {
+                  $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
                 $('#presensiName').html(result.nama);
                 $('#presensiIntution').html(result.instansi);
                 $('#presensiIdentity').html(input);
-                $('#presensiTime').html(result.datang);
+                $('#presensiDatang').html(result.datang);
+                $('#presensiPulang').html(result.pulang);
 
                 $('#identitas').val("");
                 $('#identitas').focus();

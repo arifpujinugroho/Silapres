@@ -71,24 +71,14 @@
                     </div>
                     <div class="b-t-default">
                         <div class="row m-0">
-                            <div class="col-6  text-center b-r-default p-t-15 p-b-15 ">
-                                <i class="icofont icofont-ui-clock text-muted m-r-10 "></i>
-                                <p class="text-muted m-0 text-uppercase d-inline-block" id="presensiTime">#{{ trans('app.time') }}</p>
-                            </div>
-                            <div class="col-6 text-center p-t-15 p-b-15 ">
-                                <i class="icofont icofont-ui-calendar text-muted m-r-10 "></i>
-                                <p class="text-muted m-0 d-inline-block ">
-                                @if(Lang::locale() == "en")
-                                {{ date('F dS, Y') }}
-                                @elseif(Lang::locale() == "jp")
-                                {{ date('Y') }}年 {{date('m')}}月 {{date('d')}}日
-                                @elseif(Lang::locale() == "kr")
-                                {{ date('Y') }}년 {{date('m')}}월 {{date('d')}}일
-                                @elseif(Lang::locale() == "id")
-                                {{ tglIndo(date('Y-m-d'), false) }}
-                                @endif
-                                </p>
-                            </div>
+                            <h5 class="col-6  text-center text-primary b-r-default p-t-15 p-b-15 ">
+                                <i class="icofont icofont-sign-in m-r-10 "></i>{{trans('app.come')}} :
+                                <p class=" m-0 d-inline-block" id="presensiDatang">#{{ trans('app.time') }}</p>
+                            </h5>
+                            <h5 class="col-6 text-center text-primary p-t-15 p-b-15 ">
+                                <i class="icofont icofont-sign-out m-r-10 "></i> {{ trans('app.out') }} :
+                                <p class="m-0 d-inline-block " id="presensiPulang"># {{ trans('app.time') }}</p>
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -97,4 +87,17 @@
     </div>
 </div>
 @endsection
+@section('end')
 
+<!-- Modal -->
+<div class="modal fade" id="modelLoading" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center text-primary">
+                <strong><h1 class=" display-1"><i class="fa fa-refresh rotate-refresh"></i>
+                </h1>Loading..</strong>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
