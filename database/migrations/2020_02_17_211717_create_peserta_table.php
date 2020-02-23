@@ -17,8 +17,8 @@ class CreatePesertaTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('id_event');
             $table->bigInteger('id_user');
-            $table->string('datang');
-            $table->string('pulang');
+            $table->string('datang')->nullable();
+            $table->string('pulang')->nullable();
             $table->text('validate_peserta')->nullable();
             $table->timestamps();
         });

@@ -62,9 +62,9 @@
                 <div class="card card-contact-box ">
                     <div class="card-block ">
                         <div class="card-contain text-center">
-                            <h6 class="f-w-400 f-20 text-uppercase p-b-5 m-0 p-t-15 ">#{{ trans('app.full_name') }}</h6>
-                            <a href="#!">{{ trans('app.identity') }}</a>
-                            <p class="text-muted p-b-25 m-0 p-t-5 ">{{ trans('app.institution') }}</p>
+                            <h6 class="f-w-400 f-20 text-uppercase p-b-5 m-0 p-t-15 " id="presensiName">#{{ trans('app.full_name') }}</h6>
+                            <a href="#!" id="presensiIdentity">{{ trans('app.identity') }}</a>
+                            <p class="text-muted p-b-25 m-0 p-t-5 " id="presensiInstution">{{ trans('app.institution') }}</p>
                             <div class="contain-card p-t-30 p-b-10 ">
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                         <div class="row m-0">
                             <div class="col-6  text-center b-r-default p-t-15 p-b-15 ">
                                 <i class="icofont icofont-ui-clock text-muted m-r-10 "></i>
-                                <p class="text-muted m-0 text-uppercase d-inline-block ">#{{ trans('app.time') }}</p>
+                                <p class="text-muted m-0 text-uppercase d-inline-block" id="presensiTime">#{{ trans('app.time') }}</p>
                             </div>
                             <div class="col-6 text-center p-t-15 p-b-15 ">
                                 <i class="icofont icofont-ui-calendar text-muted m-r-10 "></i>
@@ -96,29 +96,5 @@
         </div>
     </div>
 </div>
-
-
 @endsection
 
-@section('end')
-<!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <div class="modal-body">
-                Body
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection

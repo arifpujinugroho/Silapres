@@ -124,24 +124,64 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Not authorized.'],403);
         }
     }
+
     public function CekDB(Request $request)
     {
+        $idevent = customCrypt($request->get('event'),'d');
         $input = $request->get('input');
         $iden = Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->count();
         if($iden == 1){
-            return Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+            $data = Identitas::select('id','nama','no_identitas','email','jenis_kelamin','instansi','status')->where('no_identitas','=',$input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+            $cek = Peserta::where('id_event','=',$idevent)->where('id_user','=',$data->id)->first();
+            if(is_object($cek)){
+                return "Already";
+            }else{
+                $kode = Crypt::encrypt(Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first()->id);
+                $response = new \stdClass();
+                $response->isi = $data;
+                $response->kode = $kode;
+                return Response::json($response);
+            }
         }else{
             $cekMhs = CekMhs($input);
             if(is_object($cekMhs)){
-                return Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+                $data = Identitas::select('nama','no_identitas','email','jenis_kelamin','instansi','status')->where('no_identitas','=',$input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+                $kode = Crypt::encrypt(Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first()->id);
+                $response = new \stdClass();
+                $response->isi = $data;
+                $response->kode = $kode;
+                return Response::json($response);
             }else{
                 $cekDsn = CekDsn($input);
                 if(is_object($cekDsn)){
-                    return Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+                    $data = Identitas::select('nama','no_identitas','email','jenis_kelamin','instansi','status')->where('no_identitas','=',$input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+                    $kode = Crypt::encrypt(Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first()->id);
+                    $response = new \stdClass();
+                    $response->isi = $data;
+                    $response->kode = $kode;
+                    return Response::json($response);
                 }else{
                     return "";
                 }
             }
+        }
+    }
+
+    public function AddPeserta(Request $request)
+    {
+        $iduser  = Crypt::decrypt($request->get('user'));
+        $idevent = customCrypt($request->get('event'),'d');
+
+        $cek = Peserta::where('id_user','=',$iduser)->where('id_event','=',$idevent)->first();
+        if(is_object($cek)){
+            return "";
+        }else{
+            $peserta = new Peserta();
+            $peserta->id_event = $id_event;
+            $peserta->id_user = $iduser;
+            $peserta->save();
+
+            return "Success";
         }
     }
 }

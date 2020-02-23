@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Crypt;
 use App\Model\DBMHS;
 use App\Model\Dosen;
 use App\Model\Identitas;
+use App\Model\Acara;
+use App\Model\Peserta;
 
 
 function CekMhs($noid){
@@ -36,11 +38,91 @@ function CekDsn($noid){
         $usr->email = $dsn->email_dosen;
         $usr->jenis_kelamin = $dsn->jns_kel_dosen;
         $usr->instansi = "Universitas Negeri Yogyakarta";
-        $usr->level = "Dosen";
+        $usr->status = "Dosen";
         $usr->save();
         return "ada";
     } else {
         return "";
+    }
+}
+
+function DatangEvent($idevent,$iduser){
+    $event = Acara::whereid($idevent)->first();
+    if($event->tipe_event == 2){
+        $datang = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+        if(is_object($datang)){
+            if($datang->datang == ""){
+                $come = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+                $come->datang = \Carbon\Carbon::now();
+                $come->save();
+                return "Success";
+            }else{
+                return "Checked";
+            }
+        }else{
+          return "Denied";
+        }
+    }else{
+        $cek = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->count();
+        if($cek > 0){
+            $datang = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+            if($datang->datang == ""){
+                $come = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+                $come->datang = \Carbon\Carbon::now();
+                $come->save();
+                return "Success";
+            }else{
+                return "Checked";
+            }
+        }else{
+            $daftar = new Peserta();
+            $daftar->id_event = $idevent;
+            $daftar->id_user = $iduser;
+            $daftar->datang = \Carbon\Carbon::now();
+            $daftar->save();
+
+            return "Success";
+        }
+    }
+}
+
+function PulangEvent($idevent,$iduser){
+    $event = Acara::whereid($idevent)->first();
+    if($event->tipe_event == 2){
+        $datang = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+        if(is_object($datang)){
+            if($datang->pulang == ""){
+                $come = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+                $come->pulang = \Carbon\Carbon::now()->toDateTimeString();
+                $come->save();
+                return "Success";
+            }else{
+                return "Checked";
+            }
+        }else{
+          return "Denied";
+        }
+    }else{
+        $cek = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->count();
+        if($cek > 0){
+            $datang = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+            if($datang->pulang == ""){
+                $come = Peserta::where('id_event','=',$idevent)->where('id_user','=',$iduser)->first();
+                $come->pulang = \Carbon\Carbon::now()->toDateTimeString();
+                $come->save();
+                return "Success";
+            }else{
+                return "Checked";
+            }
+        }else{
+            $daftar = new Peserta();
+            $daftar->id_event = $idevent;
+            $daftar->id_user = $iduser;
+            $daftar->pulang = \Carbon\Carbon::now()->toDateTimeString();
+            $daftar->save();
+
+            return "Success";
+        }
     }
 }
 

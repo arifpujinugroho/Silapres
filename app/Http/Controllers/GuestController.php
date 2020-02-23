@@ -70,4 +70,100 @@ class GuestController extends Controller
             }
         }
     }
+
+
+    public function InputPresensi(Request $request)
+    {
+        $tipe = $request->get('tipe');
+        $input = $request->get('input');
+        $event = customCrypt($request->get('event'),'d');
+
+        if(CekEvent($event) == 'Ready'){
+            // cek identitas
+            $identity = Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+            if(is_object($identity)){
+                if($tipe == "in"){
+                    $datang =  DatangEvent($event,$identity->id);
+                    if($datang == "Success"){
+                        return Peserta::select('nama','instansi','datang','pulang')->where('peserta.id_user','=',$identity->id)->where('peserta.id_event','=',$event)->join('identitas','identitas.id','peserta.id_user')->first();
+                    }else{
+                        return $datang;
+                    }
+                }elseif($tipe == "out"){
+                    $pulang =  PulangEvent($event,$identity->id);
+                    if($pulang == "Success"){
+                        return Peserta::select('nama','instansi','datang','pulang')->where('peserta.id_user','=',$identity->id)->where('peserta.id_event','=',$event)->join('identitas','identitas.id','peserta.id_user')->first();
+                    }else{
+                        return $pulang;
+                    }
+                }else{
+                    return "error";
+                }
+            }else{
+                if(CekMhs($input) == 'ada'){
+                    $idmhs = Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+                    if($tipe == "in"){
+                        $datang =  DatangEvent($event,$idmhs->id);
+                        if($datang == "Success"){
+                            return Peserta::select('nama','instansi','datang','pulang')->where('peserta.id_user','=',$idmhs->id)->where('peserta.id_event','=',$event)->join('identitas','identitas.id','peserta.id_user')->first();
+                        }else{
+                            return $datang;
+                        }
+                    }elseif($tipe == "out"){
+                        $pulang =  PulangEvent($event,$idmhs->id);
+                        if($pulang == "Success"){
+                            return Peserta::select('nama','instansi','datang','pulang')->where('peserta.id_user','=',$idmhs->id)->where('peserta.id_event','=',$event)->join('identitas','identitas.id','peserta.id_user')->first();
+                        }else{
+                            return $pulang;
+                        }
+                    }else{
+                        return "error";
+                    }
+                }else{
+                    if(CekDsn($input) == 'ada'){
+                        $iddsn = Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
+                        if($tipe == "in"){
+                            $datang =  DatangEvent($event,$iddsn->id);
+                            if($datang == "Success"){
+                                return Peserta::select('nama','instansi','datang','pulang')->where('peserta.id_user','=',$iddsn->id)->where('peserta.id_event','=',$event)->join('identitas','identitas.id','peserta.id_user')->first();
+                            }else{
+                                return $datang;
+                            }
+                        }elseif($tipe == "out"){
+                            $pulang =  PulangEvent($event,$iddsn->id);
+                            if($pulang == "Success"){
+                                return Peserta::select('nama','instansi','datang','pulang')->where('peserta.id_user','=',$iddsn->id)->where('peserta.id_event','=',$event)->join('identitas','identitas.id','peserta.id_user')->first();
+                            }else{
+                                return $pulang;
+                            }
+                        }else{
+                            return "error";
+                        }
+                    }else{
+                        return 'error';
+                    }
+                }
+            }
+        }else{
+            return 'Denied';
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

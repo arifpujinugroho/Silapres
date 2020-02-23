@@ -18,9 +18,11 @@ Route::get('optimize', function () {
 Route::get('/', 'GuestController@index')->name('home');
 Route::post('authlogin', 'GuestController@Masuk');
 Route::get('presensi', 'GuestController@Presensi');
+Route::get('inputpresensi', 'GuestController@InputPresensi');
 
-Route::get('cek/{t}', function ($t) {
-        return CekEvent($t);
+
+Route::get('cek', function () {
+        return \Carbon\Carbon::now()->toDateTimeString();
 });
 
 Route::group(['middleware' => ['auth']], function () {

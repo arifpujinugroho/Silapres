@@ -102,12 +102,6 @@ $(document).ready(function() {
         },
         'columns': [
             {
-                data: null,
-                render: function(data, type, full, row) {
-                    return '<tombol>';
-                }
-            },
-            {
                 data : 'nama'
             },
             {
@@ -127,6 +121,12 @@ $(document).ready(function() {
             },
             {
                 data : 'instansi'
+            },
+            {
+                data: null,
+                render: function(data, type, full, row) {
+                    return '<tombol>';
+                }
             },
         ]
     });
