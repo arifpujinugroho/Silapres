@@ -44,11 +44,11 @@
                     <div class="card-header">
                         <div class="card-header-left">
                             <h5>{{ trans('app.audience') }}</h5>
-                            <p class="p-t-10 m-b-0 text-c-pink">#N/A {{ trans('app.audience') }}</p>
+                            <p class="p-t-10 m-b-0 text-c-pink" id="CountKehadiran">#N/A {{ trans('app.audience') }}</p>
                         </div>
                     </div>
                     <div class="card-block">
-                        <i class="icofont icofont-users-social st-icon bg-c-pink txt-lite-color"></i>
+                        <i class="icofont icofont-users-social st-icon bg-c-pink txt-lite-color" id="iconKehadiran"></i>
                     </div>
                 </div>
             </div>

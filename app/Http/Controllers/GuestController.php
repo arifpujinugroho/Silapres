@@ -150,7 +150,22 @@ class GuestController extends Controller
     }
 
 
-
+public function CekKehadiran(Request $request)
+{
+    $idevent = customCrypt($request->get('event'),'d');
+    if(CekEvent($idevent) == 'Ready'){
+        $event = Acara::whereid($idevent)->first();
+        if($event->tipe_event == 2){
+            $hadir = Peserta::where('id_event','=',$idevent)->wherenotnull('datang')->count();
+            $undangan = Peserta::where('id_event','=',$idevent)->count();
+            return $hadir.'/'.$undangan;
+        }else{
+            return Peserta::where('id_event','=',$idevent)->wherenotnull('datang')->count();
+        }
+    }else{
+        return response()->json(['error' => 'Not authorized.'],403);
+    }
+}
 
 
 

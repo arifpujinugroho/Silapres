@@ -19,6 +19,7 @@ Route::get('/', 'GuestController@index')->name('home');
 Route::post('authlogin', 'GuestController@Masuk');
 Route::get('presensi', 'GuestController@Presensi');
 Route::get('inputpresensi', 'GuestController@InputPresensi');
+Route::get('cekkehadiran', 'GuestController@CekKehadiran');
 
 
 Route::get('cek', function () {

@@ -1,8 +1,29 @@
 <script>
 $(document).ready(function(){
 $('.modal').css('margin-top', (Math.floor((window.innerHeight - $('.modal')[0].offsetHeight) / 2) + 'px'));
-
 $('#identitas').focus();
+
+function dataCall(){
+var event = "{{request('kunci')}}";
+    $.ajax({
+        url: '{{ url("cekkehadiran") }}',
+        type: "GET",
+        data: {
+            event: event,
+        },
+        success: function(data) {
+            $('#CountKehadiran').html(data+' {{ trans("app.audience") }}');
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            swal("Error!", "Gagal mengambil data!", "error");
+        }
+    });
+};
+
+$('#iconKehadiran').click(function(){
+    dataCall();
+    $('#identitas').focus();
+});
 
 $("#identitas").on({
   keydown: function(e) {
@@ -22,7 +43,6 @@ jam = date.getHours();
 $('#time').html(jam+" : "+menit+" : "+detik);
 }, 1000 );
 
-});
 
 document.getElementById('identitas').onkeypress = function(e){
     var input = $('#identitas').val();
@@ -32,7 +52,7 @@ document.getElementById('identitas').onkeypress = function(e){
     var keyCode = e.keyCode || e.which;
     if (keyCode == '13'){
 
-    $('#modelLoading').modal('show');
+    // $('#modelLoading').modal('show');
       // Enter pressed
       $.get("{{ URL::to('/inputpresensi') }}", {
         //   _token : token,
@@ -42,31 +62,62 @@ document.getElementById('identitas').onkeypress = function(e){
 	  })
 	  .done(function(result) {
 	  		if (result == "Checked") {
-                  $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
-                swal("{{trans('error')}}", "{{trans('notif.checked')}}", "warning");
+                // $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
+                // $("#modelLoading").modal("hide");
+
+                dataCall();
+
+                new PNotify({
+                    title: 'Checked',
+                    text: 'Anda Sudah Presensi',
+                    icon: 'icofont icofont-info-circle',
+                    type: 'warning'
+                });
+                    $('#presensiName').html("# {{ trans('app.full_name') }}");
+                    $('#presensiInstution').html("# {{ trans('app.identity') }}");
+                    $('#presensiIdentity').html("# {{ trans('app.institution') }}");
+                    $('#presensiDatang').html("# {{ trans('app.time') }}");
+                    $('#presensiPulang').html("# {{ trans('app.time') }}");
                 $('#identitas').val("");
                 $('#identitas').focus();
 	  		} else if(result == "Denied"){
-                  $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
-                  alert('Denied');
+                //   $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
                 $('#identitas').val("");
                 $('#identitas').focus();
+                dataCall();
+                swal("{{trans('notif.access_denied')}}", "{{trans('notif.system_failed_validate')}}", "error");
 	  		} else if(result == 'error'){
                 // $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
-                $("#modelLoading").modal("hide");
-                    alert('Error');
+                // $("#modelLoading").modal("hide");
+                new PNotify({
+                    title: '{{ trans("notif.wrong_server") }}',
+                    text: '{{ trans("notif.system_failed_validate") }}',
+                    icon: 'icofont icofont-info-circle',
+                    type: 'error'
+                });
                 $('#identitas').val("");
                 $('#identitas').focus();
+                dataCall();
             } else {
-                  $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
+                // $('#modelLoading').on('shown.bs.modal', function(e) {$("#modelLoading").modal("hide")});
+                // $("#modelLoading").modal("hide");
+
                 $('#presensiName').html(result.nama);
-                $('#presensiIntution').html(result.instansi);
+                $('#presensiInstution').html(result.instansi);
                 $('#presensiIdentity').html(input);
                 $('#presensiDatang').html(result.datang);
                 $('#presensiPulang').html(result.pulang);
 
+                new PNotify({
+                    title: '{{ trans("notif.success") }}!',
+                    text:  'Anda Berhasil Presensi.',
+                    icon: 'icofont icofont-businessman',
+                    type: 'success'
+                });
+
                 $('#identitas').val("");
                 $('#identitas').focus();
+                dataCall();
             };
 	  })
 	  .fail(function() {
@@ -79,5 +130,10 @@ document.getElementById('identitas').onkeypress = function(e){
       });
     }
 }
+
+
+
+
+});
 
 </script>
