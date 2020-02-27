@@ -7,6 +7,7 @@ use App\Model\Acara;
 use App\Model\Peserta;
 use App\Model\Tahun;
 use App\Model\Identitas;
+use Response;
 use Auth;
 use Validator;
 use DB;
@@ -46,7 +47,7 @@ class AuthController extends Controller
     public function ListDaftarHadir(Request $request)
     {
         $kunci  = customCrypt($request->get('kunci'),'d');
-        return Peserta::select('nama','no_identitas','email','instansi','status','datang','pulang')->join('identitas','identitas.id','peserta.id_user')->where('peserta.id_event','=',$kunci)->get();
+        return Peserta::select('peserta.id as idnya','nama','no_identitas','email','instansi','status','datang','pulang')->join('identitas','identitas.id','peserta.id_user')->where('peserta.id_event','=',$kunci)->get();
     }
 
     public function AddEvent(Request $request)
@@ -59,7 +60,6 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // return redirect()->back()->with('validator', 'failed');
             return response()->json(['error' => 'Not authorized.'],403);
         }
 
@@ -127,14 +127,18 @@ class AuthController extends Controller
 
     public function CekDB(Request $request)
     {
-        $idevent = customCrypt($request->get('event'),'d');
+        try {
+            $idevent = Crypt::decrypt($request->get('event'));
+        }catch(\Exception $e) {
+            return response()->json(['error' => 'Not authorized.'],403);
+        }
         $input = $request->get('input');
         $iden = Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->count();
         if($iden == 1){
             $data = Identitas::select('id','nama','no_identitas','email','jenis_kelamin','instansi','status')->where('no_identitas','=',$input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
             $cek = Peserta::where('id_event','=',$idevent)->where('id_user','=',$data->id)->first();
             if(is_object($cek)){
-                return "Already";
+                return 1;
             }else{
                 $kode = Crypt::encrypt(Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first()->id);
                 $response = new \stdClass();
@@ -144,7 +148,7 @@ class AuthController extends Controller
             }
         }else{
             $cekMhs = CekMhs($input);
-            if(is_object($cekMhs)){
+            if($cekMhs == "ada"){
                 $data = Identitas::select('nama','no_identitas','email','jenis_kelamin','instansi','status')->where('no_identitas','=',$input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
                 $kode = Crypt::encrypt(Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first()->id);
                 $response = new \stdClass();
@@ -153,7 +157,7 @@ class AuthController extends Controller
                 return Response::json($response);
             }else{
                 $cekDsn = CekDsn($input);
-                if(is_object($cekDsn)){
+                if($cekDsn == "ada"){
                     $data = Identitas::select('nama','no_identitas','email','jenis_kelamin','instansi','status')->where('no_identitas','=',$input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first();
                     $kode = Crypt::encrypt(Identitas::whereno_identitas($input)->orWhere('email','=',$input)->orWhere('nidn','=',$input)->orWhere('nidk','=',$input)->first()->id);
                     $response = new \stdClass();

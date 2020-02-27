@@ -189,9 +189,9 @@ $(document).ready(function() {
             {
                 data: null,
                 render: function(data, type, full, row) {
-                    return '<a href="'+thisurl+'/event/'+data.keys_event+'"><button class="btn btn-mini btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>'+
-                    '<button data-key="'+data.keys_event+'" data-nama="'+data.nama_event+'" data-tgl="'+data.tgl_event+'" data-lokasi="'+data.lokasi_event+'" data-pic="'+data.penanggung_jawab+'" data-tipe="'+data.tipe_event+'" class="editEvent btn btn-mini btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button>'+
-                    '<button data-key="'+data.keys_event+'"  data-nama="'+data.nama_event+'" class="shareEvent btn btn-mini btn-secondary"><i class="fa fa-share" aria-hidden="true"></i></button></a>';
+                    return '<a data-toggle="tooltip" title="{{trans("app.event")}}" href="'+thisurl+'/event/'+data.keys_event+'"><button class="btn btn-mini btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>'+
+                    '<button data-toggle="tooltip" title="{{trans("app.edit_event")}}" data-key="'+data.keys_event+'" data-nama="'+data.nama_event+'" data-tgl="'+data.tgl_event+'" data-lokasi="'+data.lokasi_event+'" data-pic="'+data.penanggung_jawab+'" data-tipe="'+data.tipe_event+'" class="editEvent btn btn-mini btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button>'+
+                    '<button data-toggle="tooltip" title="{{trans("app.open_attendance")}}" data-key="'+data.keys_event+'"  data-nama="'+data.nama_event+'" class="shareEvent btn btn-mini btn-secondary"><i class="fa fa-share" aria-hidden="true"></i></button></a>';
                 }
             },
             {

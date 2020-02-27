@@ -152,7 +152,7 @@
                             @endauth
                         </ul>
                         <ul class="nav-right">
-                            <li class="header-notification">
+                            <!-- <li class="header-notification">
                             <?php $mark = (preg_match('/\?/', url()->current())) ? '&' : '?'; ?>
                                 <a href="#!">{{ trans('app.language') }}</a>
                                 <ul class="show-notification">
@@ -164,7 +164,6 @@
                                     <a href="{{ url(url()->current() . $mark . 'lang=id') }}">
                                         <li>
                                             <div class="media">
-                                            <!-- <h2 class="d-flex align-self-center m-r-10"><i class="flag flag-icon flag-icon-IDR"></i></h2> -->
                                                 <div class="media-body">
                                                     <h5 class="notification-user">{{ trans('app.indonesia') }}</h5>
                                                     <span class="notification-time"><label class="label label-info">ID</label> Jakarta</span>
@@ -178,7 +177,6 @@
                                     <a href="{{ url(url()->current() . $mark . 'lang=en') }}">
                                         <li>
                                             <div class="media">
-                                            <!-- <h2 class="d-flex align-self-center m-r-10"><i class="flag flag-icon flag-icon-gb"></i></h2> -->
                                                 <div class="media-body">
                                                     <h5 class="notification-user">{{ trans('app.english') }}</h5>
                                                     <span class="notification-time"><label class="label label-info">EN</label> London</span>
@@ -192,7 +190,6 @@
                                     <a href="{{ url(url()->current() . $mark . 'lang=jp') }}">
                                         <li>
                                             <div class="media">
-                                            <!-- <h2 class="d-flex align-self-center m-r-10"><i class="flag flag-icon flag-icon-JPY"></i></h2> -->
                                                 <div class="media-body">
                                                     <h5 class="notification-user">{{ trans('app.jepang') }}</h5>
                                                     <span class="notification-time"><label class="label label-info">JP</label> Tokyo</span>
@@ -206,7 +203,6 @@
                                     <a href="{{ url(url()->current() . $mark . 'lang=kr') }}">
                                         <li>
                                             <div class="media">
-                                            <!-- <h2 class="d-flex align-self-center m-r-10"><i class="flag flag-icon flag-icon-gb"></i></h2> -->
                                                 <div class="media-body">
                                                     <h5 class="notification-user">{{ trans('app.korea') }}</h5>
                                                     <span class="notification-time"><label class="label label-info">KR</label> Seoul</span>
@@ -216,7 +212,7 @@
                                     </a>
                                     @endif
                                 </ul>
-                            </li>
+                            </li> -->
 
                             @auth
                             <li class="user-profile header-notification">

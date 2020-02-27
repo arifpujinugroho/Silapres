@@ -22,8 +22,8 @@
                 <div class="card widget-statstic-card">
                     <div class="card-header">
                         <div class="card-header-left">
-                            <h5>{{ trans('app.event') }}</h5>
-                            <p class="p-t-10 m-b-0 text-c-blue">{{ $e->nama_event }}</p>
+                            <p>@if($e->tipe_event == 1){{ trans('app.event_open') }}@else{{trans('app.event_spesial')}}@endif</p>
+                            <h4 class="p-t-0 m-b-0 text-c-blue">{{ $e->nama_event }}</h4>
                         </div>
                     </div>
                     <div class="card-block">
