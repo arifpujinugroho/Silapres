@@ -16,6 +16,8 @@
 @section('content')
 <div class="page-body">
     <div class="row">
+    <audio id="audiotrue" src="{{ url('assets/audio/beep-07.wav') }}" autoplay="false" ></audio>
+    <audio id="audiofalse" src="{{ url('assets/audio/beep-10.mp3') }}" autoplay="false" ></audio>
     <!-- statstic card start -->
         <dic class="col-md-4 col-xl-4 col-sm-12">
             <div class="col-md-12">

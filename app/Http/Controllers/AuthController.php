@@ -181,11 +181,23 @@ class AuthController extends Controller
             return "";
         }else{
             $peserta = new Peserta();
-            $peserta->id_event = $id_event;
+            $peserta->id_event = $idevent;
             $peserta->id_user = $iduser;
             $peserta->save();
 
-            return "Success";
+            return 1;
         }
+    }
+
+    public function HapusPeserta(Request $request)
+    {
+        $iduser  = $request->get('user');
+        try {
+            $idevent = Crypt::decrypt($request->get('event'));
+        }catch(\Exception $e) {
+            return response()->json(['error' => 'Not authorized.'],403);
+        }
+
+        Peserta::where('id','=',$iduser)->where('id_event','=',$idevent)->delete();
     }
 }

@@ -34,7 +34,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('cekdb', 'AuthController@CekDB');
 
         Route::post('addevent', 'AuthController@AddEvent');
+        Route::post('addpesertadb', 'AuthController@AddPeserta');
         Route::post('editevent', 'AuthController@EditEvent');
+        Route::post('hapuspeserta', 'AuthController@HapusPeserta');
     });
 
 Route::get('keluar', function () {

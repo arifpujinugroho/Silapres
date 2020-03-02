@@ -238,31 +238,31 @@ $(document).ready(function() {
                            $('#nim').focus();
                         }
                     },
-                    {
-                        text: '{{ trans("app.other") }}',
-                        //  className: 'btn-mini',
-                        action: function(e, dt, node, config) {
-                           $('#labellihatToko').html('{{ trans("app.add_Participant") }}');
-                           $('#identity_form').hide();
+                    // {
+                    //     text: '{{ trans("app.other") }}',
+                    //     //  className: 'btn-mini',
+                    //     action: function(e, dt, node, config) {
+                    //        $('#labellihatToko').html('{{ trans("app.add_Participant") }}');
+                    //        $('#identity_form').hide();
 
-                           $('#nama').val("");
-                           $('#kode').val("");
-                           $('#nim').val("");
-                           $('#peserta_identity').val("");
-                           $('#instansi').val("");
-                           $('#email').val("");
-                           $('#jns_kel').val("");
+                    //        $('#nama').val("");
+                    //        $('#kode').val("");
+                    //        $('#nim').val("");
+                    //        $('#peserta_identity').val("");
+                    //        $('#instansi').val("");
+                    //        $('#email').val("");
+                    //        $('#jns_kel').val("");
 
-                           $('#utama_form').removeAttr('disabled');
-                           $('#kedua_form').removeAttr('disabled');
-                           $('#kedua_form').show();
-                           $('#btn_save_other_peserta').removeAttr('disabled');
-                           $('#btn_save_other_peserta').show();
-                           $('#btn_save_uny_peserta').hide();
-                           $('#btn_edit_peserta').hide();
-                           $('#lihatSurat').modal('show');
-                        }
-                    },
+                    //        $('#utama_form').removeAttr('disabled');
+                    //        $('#kedua_form').removeAttr('disabled');
+                    //        $('#kedua_form').show();
+                    //        $('#btn_save_other_peserta').removeAttr('disabled');
+                    //        $('#btn_save_other_peserta').show();
+                    //        $('#btn_save_uny_peserta').hide();
+                    //        $('#btn_edit_peserta').hide();
+                    //        $('#lihatSurat').modal('show');
+                    //     }
+                    // },
                 ]
             },
             {
@@ -358,15 +358,66 @@ $(document).ready(function() {
                 data : 'email'
             },
             {
-                data: 'datang'
-            },
-            {
-                data : 'pulang'
+                data: null,
+                render: function(data, type, full, row) {
+                    if(data.datang == "" || data.datang == null){
+                        return "-";
+                    }else{
+                        var date = new Date(data.datang);
+                        var tahun = date.getFullYear();
+                        var bulan = date.getMonth();
+                        var tanggal = date.getDate();
+                        var hari = date.getDay();
+                        var jam = date.getHours();
+                        var menit = date.getMinutes();
+                        var detik = date.getSeconds();
+                        switch(hari) {
+                         case 0: hari = "Minggu"; break;
+                         case 1: hari = "Senin"; break;
+                         case 2: hari = "Selasa"; break;
+                         case 3: hari = "Rabu"; break;
+                         case 4: hari = "Kamis"; break;
+                         case 5: hari = "Jum'at"; break;
+                         case 6: hari = "Sabtu"; break;
+                        }
+                        switch(bulan) {
+                         case 0: bulan = "Januari"; break;
+                         case 1: bulan = "Februari"; break;
+                         case 2: bulan = "Maret"; break;
+                         case 3: bulan = "April"; break;
+                         case 4: bulan = "Mei"; break;
+                         case 5: bulan = "Juni"; break;
+                         case 6: bulan = "Juli"; break;
+                         case 7: bulan = "Agustus"; break;
+                         case 8: bulan = "September"; break;
+                         case 9: bulan = "Oktober"; break;
+                         case 10: bulan = "November"; break;
+                         case 11: bulan = "Desember"; break;
+                        }
+                        var tampilTanggal = hari + ", " + tanggal + " " + bulan + " " + tahun;
+                        var tampilWaktu = jam + ":" + menit;
+                        return tampilWaktu;
+                    }
+                }
             },
             {
                 data: null,
                 render: function(data, type, full, row) {
-                    return '<tombol>';
+                    if(data.pulang == "" || data.pulang == null){
+                        return "-";
+                    }else{
+                        var date = new Date(data.pulang);
+                        var jam = date.getHours();
+                        var menit = date.getMinutes();
+                        var detik = date.getSeconds();
+                        return jam+":"+menit;
+                    }
+                }
+            },
+            {
+                data: null,
+                render: function(data, type, full, row) {
+                    return '<button data-nama="'+data.nama+'" data-id="'+data.idnya+'" class="deletePeserta btn btn-mini btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                 }
             },
             // {
@@ -383,13 +434,37 @@ $(document).ready(function() {
         table.ajax.reload();
     });
 
-    // $('#memberTable tbody').on('click', '.shareEvent', function() {
-    //     var key = $(this).data('key');
-    //     var nama = $(this).data('nama');
-    //     $('#shareLink .namaEvent').html(nama);
-    //     $('#kode_event').val(key);
-    //     $('#shareLink').modal('show');
-    // });
+    $('#memberTable tbody').on('click', '.deletePeserta', function() {
+        var event = "{{Crypt::encrypt($e->id)}}";
+        var nama = $(this).data('nama');
+        var user = $(this).data('id');
+        swal({
+            title: "Hapus "+nama,
+            text: "Ingin menghapus peserta  "+nama+" ?",
+            type: "warning",
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            confirmButtonText: "Hapus",
+            closeOnConfirm: false
+        }, function() {
+            $.ajax({
+                url: "{{url('/hapuspeserta')}}",
+                type: "POST",
+                data: {
+                    _token: token,
+                    event: event,
+                    user: user
+                },
+                success: function() {
+                    swal(" Dihapus!", "Anda berhasil menghapus peserta : "+nama, "success");
+                    table.ajax.reload();
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal("Error Dihapus!", "Silakan Coba Lagi", "error");
+                }
+            });
+        });
+    });
 
     // $('#memberTable tbody').on('click', '.editEvent', function() {
     //     $('#kode_event').val($(this).data('key'));
@@ -439,6 +514,53 @@ $(document).ready(function() {
         }
     });
 
+    $('#btn_save_uny_peserta').click(function(){
+        var event = "{{$e->keys_event}}";
+        var user = $('#kode').val();
+
+        if(event != "" && user != ""){
+                $.post("{{ URL::to('/addpesertadb') }}", {
+                    _token : token,
+	            	event: event,
+	            	user:user
+	            })
+	            .done(function(result) {
+	            		if ($.isNumeric(result)) {
+                            table.ajax.reload();
+                            $('#lihatSurat').modal('hide');
+                            new PNotify({
+	                        	title: '{{trans("notif.success")}}',
+	                        	text: '{{trans("notif.data_save")}}',
+	                        	icon: 'icofont icofont-info-circle',
+	                        	type: 'success'
+                            });
+                            // swal({title: "{{trans('notif.success')}}", text: "{{trans('notif.data_save')}}", type: "success"}, function() {window.location.reload();});
+	            		} else {
+                            new PNotify({
+	                        	title: '{{ trans("notif.wrong_server") }}',
+	                        	text: '{{ trans("notif.reload_page") }}',
+	                        	icon: 'icofont icofont-info-circle',
+	                        	type: 'error'
+	                        });
+	            		};
+	            })
+	            .fail(function() {
+                    new PNotify({
+	                	title: '{{ trans("notif.wrong_server") }}',
+	                	text: '{{ trans("notif.reload_page") }}',
+	                	icon: 'icofont icofont-info-circle',
+	                	type: 'error'
+	                });
+                });
+        }else{
+            new PNotify({
+	        	title: '{{ trans("notif.form_empty") }}',
+	        	text: '{{ trans("notif.form_check") }}',
+	        	icon: 'icofont icofont-info-circle',
+	        	type: 'error'
+	        });
+        }
+    });
 
 
     $('#btn_edit_event').click(function(){
