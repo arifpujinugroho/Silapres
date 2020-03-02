@@ -1,5 +1,16 @@
 <script>
-
+function openFullscreen() {
+  var elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}
 
 function AudioTrue() {
     var sound = document.getElementById("audiotrue");
@@ -12,6 +23,7 @@ function AudioFalse() {
 }
 
 $(document).ready(function(){
+    openFullscreen();
 $('.modal').css('margin-top', (Math.floor((window.innerHeight - $('.modal')[0].offsetHeight) / 2) + 'px'));
 $('#identitas').focus();
 
@@ -63,7 +75,7 @@ function ResetInfo(){
         $('#presensiIdentity').html("# {{ trans('app.institution') }}");
         $('#presensiDatang').html("# {{ trans('app.time') }}");
         $('#presensiPulang').html("# {{ trans('app.time') }}");
-    },5000);
+    }, 8000);
 }
 
 
